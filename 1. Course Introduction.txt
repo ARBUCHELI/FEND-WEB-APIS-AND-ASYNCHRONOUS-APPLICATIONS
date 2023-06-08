@@ -1,0 +1,55 @@
+1. Course Introduction
+----------------------
+	1. Intro: Web API's and Asynchronous Applications
+	-------------------------------------------------
+	- How to develop an asynchronous JavaScript web app, that uses an external web API, and dynamically updates the U-I of your web app.
+
+		Development Environment
+		-----------------------
+			. Node
+			. Express
+
+	2. Intro: HTTP Routes & Requests
+	--------------------------------
+	- We will cover how to set up routes, they handle passing data through your app with HTTP post requests. The two requests that will cover most are GET and POST.
+
+	- We are going to study the difference and relationship between Client-side code vs. Server-side code.
+
+		HTTP Requests & Routes
+		----------------------
+			. HTTP requests
+				. GET
+				. POST
+
+			. Client-side vs. server-side
+
+	3. Intro: Asynchronous JavaScript
+	---------------------------------
+	- We'll cover how to set up and dynamically access Web API data, and how to use the Fetch API to easily and elegantly make HTTP GET and POST requests from the client-side
+	code, and seamlessly process that data from the server-side code.
+
+	- Asynchronous JavaScript is possible thanks to a relatively new feature, made native in JavaScript, called Promise.
+
+	4. Introduction: Recap
+	----------------------
+		Course Map
+		----------
+			. Lesson 1: Introduction
+			. Lesson 2: Node & Express Environment
+			. Lesson 3: HTTP Requests & Routes
+			. Lesson 4: Asynchronous JavaScript
+
+			By the end of this course, you will be able to:
+			. Set up a Node and Express environment to develop a web application on your local machine
+			. Set up a server and route data through a web app
+			. Integrate an external API into a web app and data routes
+			. Use HTTP POST & GET requests to create persistent data in your app
+			. Use the JavaScript Fetch API to update the UI based on HTML input forms and external API data
+
+			If you have questions along the way, or are excited to dig deeper into what we’re learning, some great resources for you to work with are:
+			. Express routing documentation
+			. MDN fetch API documentation
+			. JavaScript Promises Introduction
+
+
+	

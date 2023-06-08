@@ -1,0 +1,62 @@
+2. Node & Express Environment
+-----------------------------
+	1. Node.js Overview
+	-------------------
+		- Node.js is an open-source, cross-platform, JavaScript server environment that allows you to execute code outside of a browser, in addition to within the browser.
+
+		- Server-side  code produces dynamic webpage content.
+
+		- Persistence: Maintain created data across visits from the webpage.
+
+		- Allows to easily create a server for local web development, without needing and FTP server or a domain, and lets install packages that are dependencies for my project, 
+		very easily and from the command line.
+
+		Node.js Overview
+		----------------
+			. Open source
+
+			. Cross-platform
+
+			. Server-side scripting
+
+			. Persistence
+
+		The first step to using Node.js is to install it on your computer. You can do so by following the link below and installing the Windows or Mac version, depending on what 
+		type of operating system you are using.
+
+		Node.js Download Page
+
+		If you've installed Node previously and need to update to a newer version, check out this article.
+
+
+	2. Using Node
+	-------------
+	One of the most useful features of Node is that it comes pre-installed with a standard package manager called NPM. NPM started as an easier way to download and manage dependencies 
+	of Node.js packages, but now it is also used as a tool in front-end JavaScript as well.
+
+	A package in Node.js contains all the files you need for a module. Modules are JavaScript libraries you can include in your project. There are hundreds of thousands of Node.js 
+	packages and NPM gives you easy access to all of them! For the purposes of this course we will make heavy use of the Node package called Express, as well as packages called CORS 
+	which allows for communication across the web, and Body-Parser (which is considered in the category of Middleware) which will allow us to parse the data we eventually will be 
+	passing through routes on our server. Let’s take a look at how to install and include these last two packages from the command line using NPM:
+
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
