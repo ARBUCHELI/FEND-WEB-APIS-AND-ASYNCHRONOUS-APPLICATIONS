@@ -184,10 +184,67 @@
 		URL Encoding and related Express documentation for bodyParser’s urlencoded functionality
 		JavaScript Object Notation (JSON) and related Express documentation for bodyParser’s json functionality
 
+
 =================================================================================================================================================================
 
-		
+	5. Exercise: Including Packages
+	-------------------------------
+				
 
+starter.js
+----------
+/* Empty JS object to act as endpoint for all routes */
+projectData = {};
+
+// TODO-Express to run server and routes
+const express = require('express');
+const cors = require('cors');
+
+// TODO-Start up an instance of app
+const app = express();
+
+/* Dependencies */
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// TODO-Cors for cross origin allowance
+app.use(cors());
+/* Initializing the main project folder */
+app.use(express.static('website'));
+
+const port = 3000;
+
+==================================================================================================================================================================
+
+	6. Creating a Local Server I
+	----------------------------
+		* Creating A Local Server With Node & Express
+		---------------------------------------------
+			- Often the first thing done in a Node & Express environment is to create a local server, that'll allow an app to run locally in the browser.
+
+			Local Server
+			------------
+				Receive requests --> Process them --> Return a response
+
+			- We can create servers with Node without having to use an FTP server or other hosting solutions.
+	
+			- We are going to create routes to dynamically pass data between different parts of our apps.
+
+			- This is the code that we would use to actually write the server: 
+			 
+			.listen()
+			---------
+			const port = 8000;
+
+			const server = app.listen(port, listening);
+
+			function listening() {
+				console.log("server running");
+				console.log(`running on localhost: ${port}`);
+			}
+
+		
 
 
 
