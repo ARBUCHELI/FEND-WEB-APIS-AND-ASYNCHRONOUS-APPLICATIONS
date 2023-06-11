@@ -169,6 +169,23 @@
 		Asw/	
 			app.use(amazing());
 
+		So far we have just seen how Express can be used to create an instance of a web app, and to include other Node packages in that web app, but the real fun of Express is 
+		unleashed with Routes. Before we can work with routes however, there are a couple other topics we need to cover. Next we'll learn what a server is, and how to create one 
+		locally to develop web projects on our own machines.
+
+		More on Express
+		---------------
+		You can learn more about Node and Express by reading the Express/Node introduction on the MDN web docs page.
+
+		What about cors, urlencoded and json?
+		While we won’t cover cors, urlencoded and json in-depth here, if you want to read about more on each, see the following links:
+
+		Cross-origin resource sharing (CORS) and related Express documentation for CORS
+		URL Encoding and related Express documentation for bodyParser’s urlencoded functionality
+		JavaScript Object Notation (JSON) and related Express documentation for bodyParser’s json functionality
+
+=================================================================================================================================================================
+
 		
 
 
