@@ -228,6 +228,132 @@ app.get("/all", function(req, res) {
 
 ==================================================================================================================================================================
 
+5. Exercise: POST requests
+--------------------------
+	L3- Set 2
+	In this set of exercises you will tangle with POST routes and your favorite animal.
+	1) In the file, server.js, create a POST route that uses the url /add and sends the response POST received when used to make a request.
+
+	HIDE SOLUTION
+	The parameters used here, req and res, are shortened versions of and equivalent to request and response, which are also often used for naming the parameters of route methods.
+
+app.post('/add', callBack);
+
+function callBack(req,res){
+  res.send('POST received')
+}
+
+	2) Add a POST route for adding a favorite animal via the path ’/animal’ to an array named data. You will need to create the array as well.
+
+const data = [];
+
+app.post('/animal', addAnimal);
+
+function addAnimal (req,res){
+    data.push(req.body);
+};
+
+You're getting there! This stuff can be hard to pick up at first, but your brain is starting to untangle this, I promise!
+
+server.js
+---------
+/* Empty JS object to act as endpoint for all routes */
+projectData = {};
+
+/* Express to run server and routes */
+const express = require('express');
+
+/* Start up an instance of app */
+const app = express();
+
+/* Dependencies */
+const bodyParser = require('body-parser')
+/* Middleware*/
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+const cors = require('cors');
+app.use(cors());
+
+/* Initialize the main project folder*/
+app.use(express.static('website'));
+
+const port = 3000;
+/* Spin up the server*/
+const server = app.listen(port, listening);
+ function listening(){
+    // console.log(server);
+    console.log(`running on localhost: ${port}`);
+  };
+
+// GET route
+app.get('/all', sendData);
+
+function sendData (request, response) {
+  response.send(projectData);
+};
+
+// TODO-ROUTES!
+app.post('/add', function(req, res) {
+    res.send("POST received");
+});
+ 
+const data = [];
+
+app.post('/animal', function(req, res) {
+    data.push(req.body);
+})
+
+==================================================================================================================================================================
+
+* Client Side, Server Side
+--------------------------
+	Understanding Server & Client Side Code
+	---------------------------------------
+		Client Side & Server Side
+		-------------------------
+		* Server
+		--------
+			. Set up the beginning to handle anything outside what browsers do.
+
+		* Client
+		--------
+			. Code that the browser executes.
+			. The "finished product" that users see.
+
+		* Client Side & Server Side Example:
+		------------------------------------
+		Assuming we have set up a POST route in the file server.js file, we will move into the website folder and start writing client side code in a file named app.js. Here is 
+		the code we could use to make a POST request to our route:
+
+const postData = async ( url = '', data = {})=>{
+    console.log(data);
+      const response = await fetch(url, {
+      method: 'POST', 
+      credentials: 'same-origin',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+     // Body data type must match "Content-Type" header        
+      body: JSON.stringify(data), 
+    });
+  
+      try {
+        const newData = await response.json();
+        console.log(newData);
+        return newData;
+      }catch(error) {
+      console.log("error", error);
+      }
+  }
+
+postData('/add', {answer:42});
+
+		On the next page is a screencast showing this in action.
+
+==================================================================================================================================================================
+
+
+			
 
 	
 
