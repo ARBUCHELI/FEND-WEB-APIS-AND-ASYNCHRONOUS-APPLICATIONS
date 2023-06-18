@@ -1,0 +1,270 @@
+3. HTTP Requests & Routes
+-------------------------
+
+1. Routes & GET Requests
+------------------------
+	- A server receives requests, processes them and then returns a response. 
+
+	- Routes are used to handle these requests.
+
+	- The two most common forms of requests are GET, and POST.
+
+		Routes & GET Requests
+		---------------------
+			. Routes handle requests
+			. GET
+			. POST
+
+	- Express provides methods that define routing. These methods correspond directly to HTTP methods. 
+
+	- In the following example, app.get is an express method to handle the HTTP GET request.
+
+		Express Route Example
+		---------------------
+			const express = require("express");
+			const app = express();
+
+			app.get("/", function(req, res) {
+				res.send("hello world");
+			}
+
+	In this example below, app.get() is used to make a GET request, the first parameter is the particular URL -- in this case our project home page, and a callback function to execute. 
+	Inside the callback function a response is sent using .send(), and in this case the response is a string that says 'hello world'. The real life execution of this code would mean 
+	that whenever the project home URL is visited in the browser, there will be a GET request made to the server, and the response will be shown in the browser, so the words 'hello 
+	world' would appear on the screen.
+
+	var express = require('express');
+	var app = express();
+
+	// respond with "hello world" when a GET request is made to the homepage
+	app.get('/', function (req, res) {
+  		res.send('hello world');
+	})
+
+	Request and Response Parameters
+	-------------------------------
+	The req parameter signifies the "request" from the client to the server. The res parameter signifies the "response" from the server to the client.
+
+	If you would like to read more about GET and the other HTTP request methods, you can check out the documentation here.
+
+==================================================================================================================================================================
+
+2. Exercise: GET requests
+-------------------------
+	Lesson 3 Requests & Routes
+	--------------------------
+	This exercise focuses on GET routes. You GOT it!
+	L3- Set 1
+	1) In the file server.js, create a GET route that uses the url /all and returns the JavaScript object named projectData.
+
+	HIDE SOLUTION
+	This example uses a callback function:
+
+app.get('/all', sendData);
+
+
+function sendData (request, response) {
+  response.send(projectData);
+};
+
+	You could also just pass a function in as the second parameter to .get() like this:
+
+app.get('/all', function (request, response) {
+  response.send(projectData);
+});
+
+	Or even with an arrow function like this:
+
+app.get('/all', (request, response)=> {
+  response.send(projectData);
+});
+
+server.js
+---------
+/* Empty JS object to act as endpoint for all routes */
+projectData = {};
+
+/* Express to run server and routes */
+const express = require('express');
+
+/* Start up an instance of app */
+const app = express();
+
+/* Dependencies */
+const bodyParser = require('body-parser')
+/* Middleware*/
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+const cors = require('cors');
+app.use(cors());
+
+/* Initialize the main project folder*/
+app.use(express.static('website'));
+
+const port = 3000;
+/* Spin up the server*/
+const server = app.listen(port, listening);
+ function listening(){
+    // console.log(server);
+    console.log(`running on localhost: ${port}`);
+  };
+
+// TODO-ROUTES!
+app.get("/all", function(req, res) {
+    res.send(projectData);
+});
+
+==================================================================================================================================================================
+
+3. More Powerful GET Requests
+-----------------------------
+	Hello world is all well and good, but suppose we wanted to make a GET request for some more useful data. GET requests can return all kinds of data, for example, imagine we wanted 
+	a JavaScript object to hold user data for us.
+
+		. At the top of the demo code we just looked at, we could create an empty JavaScript object with the code const appData = {}. The variable appData now acts as the endpoint 
+		for all our app data. Later we will learn how to POST data to the app endpoint, but first let's add the line of code that will return our JavaScript object when the GET 
+		request is made.
+	
+		var express = require('express')
+		var app = express()
+		// Create JS object
+		const appData = {}
+		// Respond with JS object when a GET request is made to the homepage
+		app.get('/all', function (req, res) {
+  			res.send(appData)
+		})
+
+	In this example, we created a new route named '/all', so that the route 'localhost:3000/all' will now trigger the GET request, which will return the JavaScript object as laid out 
+	in the server code above.
+
+	Notice, the callback function of the GET request takes two parameters, arbitrarily named req and res in this example. Every GET request produces a request, which is the data 
+	provided by the GET request, and a response, which is the data returned to the GET request. Below, you can see the long list of information that comes with each GET request:
+
+	Routes & GET Requests Quiz
+	--------------------------
+	Add a GET route to an app instance, using the path ‘/data’, and a function with the parameters req and res, and returns the string ‘welcome!’
+
+	Asw/ app.get('/data', function(req, res) { res.send("'welcome!'"); });
+
+	Routes & GET Requests Quiz 2
+	----------------------------
+	The arguments for GET and POST route callback functions are often interchangeably named (req, res) and (request, response). Which one of these makes more sense to use? What if you 
+	had to write them twenty or fifty times in a coding session? You can name these arguments for GET and POST requests anything you like, but it should be meaningful and effective.
+
+	Your reflection
+	---------------
+	For me (req, res) makes more sense to use, because is more sustainable, and more effective, and it's shorter.
+
+	More on Express routing and GET requests
+	----------------------------------------
+	In this lesson we learned how Express methods can be used to define routes and handle GET requests made to a server created with Node and Express. For more on Express routing 
+	methods and GET requests you can visit the 'Routing' guide in the Express documentation.
+
+==================================================================================================================================================================
+
+4. Routes & POST requests
+-------------------------
+	Routes: POST Requests
+	---------------------
+	One way to collect and store user data so that you can access it later is through making an HTTP POST request. Analogous to the .get() Express method, there is also a .post() 
+	method to handle HTTP POST requests. An HTTP POST request sends data to the project's endpoint, where it is stored and can be accessed through a GET request, which we covered in 
+	the last lesson. Here is what a simple POST request could look like using the Express method .post():
+
+		// POST method route
+			app.post('/', function (req, res) {
+  			res.send('POST received')
+		})
+
+		Routes & POST requests
+		----------------------
+		app.post("/", function(req, res) {
+			res.send("POST received");
+		});
+
+	Here is how you could setup a basic POST route in the server side code.
+
+	First, Create an array to hold data:
+
+		const data = []
+
+	Then, create post() with a url path and a callback function:
+
+		app.post('/addMovie', addMovie )
+
+	In the callback function, add the data received from request.body. This is the key piece of information we are interested in from that long stretch of data we saw previously that 
+	the request (req) argument returns.
+
+		function addMovie (req, res){
+   			console.log(req.body)
+   			data.push(req.body)
+		}
+
+	In the next section we will cover how to execute this POST route with a request from the client side code.
+
+	Quiz Question
+	-------------
+	Check all the following that are true about Express Routes and HTTP Requests
+
+	Asw/
+		. Express routes are setup in the server code.
+		. Express provides handlers that directly correspond to HTTP requests, such as GET and POST.
+		. GET and POST requests are used to retrieve and save data between APIs and servers..
+
+	Routes & POST requests Quiz 2
+	-----------------------------
+	Write a post route for adding a favorite ice cream flavor via the path ’/flavor’ to an array named data.
+
+	Asw/
+		const data = [];
+		app.post(//replace this text with route, addFlavor);
+
+		function addFlavor (req, res) {
+  			//replace this text to add the body of the request to the `data` array
+		}; 
+		const data = []; app.post('/flavor', addFlavor); function addFlavor (req, res) { data.push(req.body); };
+
+	So how do we actually activate our POST route, and how does it know what data to process? We will learn the answer to those questions in the next lesson, when we learn about 
+	connecting client and server code. So far we have just been working on the server side, but next we will learn how to POST and GET data from the browser.
+
+==================================================================================================================================================================
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
