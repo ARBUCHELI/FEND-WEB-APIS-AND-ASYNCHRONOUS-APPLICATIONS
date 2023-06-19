@@ -352,8 +352,246 @@ postData('/add', {answer:42});
 
 ==================================================================================================================================================================
 
+* Client Side & Server Side Example
+-----------------------------------
+	Let's focus in on the actual POST request, which is an object passed as the second parameter to fetch(). The First parameter is the URL we want to make the POST request to.
 
-			
+ 		{
+      			method: 'POST', 
+      			credentials: 'same-origin',
+      			headers: {
+          			'Content-Type': 'application/json',
+      			},
+      			body: JSON.stringify(data),
+ 		}
+
+	The credentials and headers are pretty boilerplate, but necessary for a successful POST request. The most important thing to notice is that Content-Type is set to json because we 
+	will be handling our data with JSON, for the most part.
+
+	Now we get to the juicy parts: the method is set to POST because we are accessing the POST route we setup in server.js. If we wanted to make a GET request from the client side, 
+	the method would be GET. The body of the request is the part we are most interested in because this is how we will access the data on the server side. When sending data to a web server, the data has to be a string. We can convert a JavaScript object into a string using the JavaScript method JSON.stringify(), which turns JavaScript objects and JSON data into a string for our server to receive the information. In this example, we are turning the JavaScript object passed in the data parameter into a string.
+
+
+	Quiz Question
+	-------------
+
+	Check all that are true about server side and client side programming:
+
+	Asw/
+	- Server code and client side code belong in separate files at different levels of your project hierarchy on the browser.
+	- A route created on the server side can be accessed through a GET or POST request made on the client side.
+	- Server code manages the routing of data separate from the browser.
+
+==================================================================================================================================================================
+
+* Exercise: Client Side & Server Side
+-------------------------------------
+	L3- Set 3
+	---------
+	In this exercise you will start to understand how a route setup on the server side, is used on the client side with a request.
+	This is meant to be a starting place for you to see how things work a bit, so don't worry too much about code you don't understand yet-- we're building up to it...
+
+	1) In the file named app.js, which is located in the website directory of this project, call the function postData with the url /addAnimal and the name of your favorite animal to 
+	create a POST request that uses the POST route you setup in server.js.
+
+	HIDE SOLUTION
+	-------------
+		postData('/addAnimal', {animal:'lion'})
+
+	See?! That wasn't so bad, right?
+
+server.js
+---------
+/* Empty JS object to act as endpoint for all routes */
+projectData = {};
+
+/* Express to run server and routes */
+const express = require('express');
+
+/* Start up an instance of app */
+const app = express();
+
+/* Dependencies */
+const bodyParser = require('body-parser')
+/* Middleware*/
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+const cors = require('cors');
+app.use(cors());
+
+/* Initialize the main project folder*/
+app.use(express.static('website'));
+
+const port = 3000;
+/* Spin up the server*/
+const server = app.listen(port, listening);
+ function listening(){
+    // console.log(server);
+    console.log(`running on localhost: ${port}`);
+  };
+
+// GET route
+app.get('/all', sendData);
+
+function sendData (request, response) {
+  response.send(projectData);
+};
+
+// POST route
+app.post('/add', callBack);
+
+function callBack(req,res){
+  res.send('POST received');
+}
+
+// POST an animal
+const data = [];
+
+app.post('/animal', addAnimal);
+
+function addAnimal (req,res){
+    data.push(req.body);
+};
+
+app.js
+------
+/* Function to POST data */
+const postData = async ( url = '', data = {})=>{
+  console.log(data)
+    const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data), // body data type must match "Content-Type" header        
+  });
+
+    try {
+      const newData = await response.json();
+      // console.log(newData);
+      return newData
+    }catch(error) {
+    console.log("error", error);
+    // appropriately handle the error
+    }
+}
+
+// TODO-Call Function
+postData('/addAnimal', {animal: 'lion'});
+
+	Setup Local Environment for Asynchronous JS
+	-------------------------------------------
+	At this point, you could potentially start to test your code and get feedback in a browser to make sure it is working. Here are the steps you would take on your local machine to 
+	do this:
+
+	How to set up a local environment for asynchronous JS?
+
+		. Make sure Node is installed on your computer
+
+		. Install Express and other Node packages as explained in this course
+
+		. You will need 3 applications open: Code editor, Terminal, Chrome Browser
+
+		. Code Editor: Write code in Files (for example server.js and app.js)
+
+		. Terminal: Run server.js file using command node server.js
+
+		. Browser: Look in the dev tools of chrome browser for feedback (use console.log() to make sure your code is working properly).
+
+	Extra resources
+	---------------
+		. If you would like to experiment with running live asynchronous JavaScript code, you can use this website that is set up for live feedback.
+
+		. You can also use this article, Debugging Asynchronous JavaScript with Chrome DevTools, as another tool for helping you set up your own testing environment.
+
+		. This article, Debugging async operations in Node.js, is also helpful for running code in your own environment.
+
+==================================================================================================================================================================
+
+* Processing the POST request
+-----------------------------
+	So now that we know how to send a POST request from the client side, let's return to the server code and learn how to process the data we receive with our POST request. Remember, 
+	the last line of code in our previous example called our postData function, passing in the URL of the POST route, and an object containing the data to be posted. That line of code 
+	looked like this: postData('/addmovie', {movie:' the matrix'})
+
+	Back on the server side code we should now be able to receive the data movie:'the matrix'. Remember in the last example, we attached our data to the body of our POST request, so 
+	to receive that data and make it actionable we can use request.body.
+
+	Here is an example where we set a variable named data to hold the value of request.body, and then print data to see what we received.
+
+		app.post('/add', function (request, response) {
+    			let data = request.body;
+    			console.log(data);
+		});
+
+	The output of this would display in the terminal: {movie:'the matrix'}
+
+	But we don't just want to see the data we received, to complete our POST request we must assign the data we received to our project endpoint, the JS object in our server code 
+	named projectData. We can simply make a new entry in our JS object using the syntax:
+
+	projectData["x"] = y
+
+	This code would create a new entry in our JS object API endpoint where the value of a string "x" is y. So if the data received from the POST request was {intelligence:100}, we 
+	could create a new entry in our endpoint with the code: let data = request.body; projectData["intelligence"]= data.intelligence;
+
+	Notice that we manually set the string for the key of the new JS object entry as "intelligence", and then to access the property we want to set as its value we use 
+	data.intelligence. For more on JS dot notation see the MDN Web Docs entry on Property accessors.
+
+	Quiz Question
+	-------------
+	const data = [{animal:"elephant", score: 10},{animal:"kangaroo",score:3}]
+
+	function makeData(request){
+   
+	}
+
+	makeData({body:{animal:"turtle", score:7}})
+
+	Given the above code, which code block inside the functionmakeData would correctly use the input data to add a new JS object to the data array, following the same structure as the 
+	entries already present?
+
+	let newData = request.body;
+	let newEntry = {
+		animal: newData.animal,
+		score: newData.score
+		}
+	data.push(newEntry)
+
+	Client Side and Server Side Quiz
+	--------------------------------
+	Let's look at another scenario: a client-side POST request written in a function, postData(). Assume postData() sent a POST request to your server with the data: {answer:42}. 
+	Complete the server-side code to add the request body directly to the project endpoint, named projectData.
+
+		...
+		projectData = [];
+		app.post('/add', function(request, response){
+  			// Your code goes here   
+		}) 
+
+	Asw/ projectData.push(request.body);
+
+	In this lesson we have learned how server side and client side code work together to route data through a web app. We learned how to setup a POST request in the server side code, 
+	and then execute a POST request via that path on the client side code. We also covered how to structure and add POST request data to a project API endpoint. In the next lesson we 
+	will learn more about asynchronous functions in JavaScript and you will learn more in depth about some of the syntax used in these demos, including async, await, try, and catch .
+
+	For more details on server side and client side programming see this Stack Overflow post.
+
+==================================================================================================================================================================
+
+* Glossary
+----------
+	Below is the summary of all the keywords in this lesson:
+
+		. HTTP Request: It is an action to be performed on a resource identified by a given request-url. Some HTTP request methods are GET, POST, PUT, DELETE, etc.
+
+		. GET: GET is an HTTP request method used to request data from a specified resource.
+
+		. POST: POST is an HTTP request method that requests the webserver to accept the data enclosed in the body of the request message.
+
+==================================================================================================================================================================
+
+
 
 	
 
