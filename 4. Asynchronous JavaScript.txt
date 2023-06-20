@@ -1,0 +1,162 @@
+# ASYNCHRONOUS JAVASCRIPT
+-------------------------
+
+* Async JS
+----------
+
+	* Asynchronous JavaScript
+	-------------------------
+	JavaScript is a single threaded programming language, which means for the most part it will be run as a single process in your computer (essentially writing and running it top to 
+	bottom).
+
+	To be an effective web developer you have to be comfortable writing async code when the situation calls for it. For those times JavaScript does have a few async tricks up its 
+	sleeve. One of the most common is setTimeout() which allows you to break out of the inherent JS behavior of executing code line by line starting at the top. Let’s explore these 
+	ideas more in a video:
+
+	Synchronous						Asynchronous
+	-----------						------------
+	function sync() {					setTimeout(function() {
+		console.log("first");					console.log("third");
+	}                                                       }, 3000);	
+
+	sync();                                                 function sync() {
+									console.log("first");
+	console.log("second");					}
+
+								sync();
+
+								console.log("second");
+
+	Here is the async function code shown in the video above:
+
+		/*SYNC REVIEW*/
+
+		setTimeout(function(){ console.log('third') }, 3000);
+
+		function sync(){
+			console.log('first')
+		}
+
+		sync()
+		console.log('second')
+
+==================================================================================================================================================================
+
+2. Async Promises
+-----------------
+	While there have always been some async work arounds in JS, including setTimeout(), and AJAX, more recently a tool called Promises has been introduced natively to JavaScript, and 
+	Promises are now the accepted best practice for writing asynchronous functions in JavaScript.
+
+	You can think of Promises as a special function that either satisfy (resolve) or fail (reject) to execute a task, and then executes the corresponding actions, usually another task 
+	with the returned data in the case of 'resolved' and usually throw an error in the case of 'reject'.
+
+	Here is the basic anatomy of a Promise:
+	---------------------------------------
+	Syntax
+	------
+		var promise = new Promise(function(resolve, reject) {
+  			// do a thing, possibly async, then…
+
+  			if (/ *everything turned out fine* /) {
+    				resolve("Stuff worked!");
+  			}
+  			else {
+    				reject(Error("It broke"));
+  			}
+		});
+
+	There are many methods to handle asynchronous work already, however Promises are the recommended option because they give you flexibility, intuitive syntax, and easy error 
+	handling. Promises are an amazing development in JavaScript, but until ES2017 (ES8) they still required extra boilerplate code, called generators, to run asynchronously. Now 
+	however, with the addition of native async functions to JavaScript, we can easily apply the async keywords to a Promise to execute asynchronous JavaScript code.
+
+	To make a fetch() call, or any other methods inside of a function, asynchronous we must use the keywords provided by JavaScript. Here is an example of an asynchronous fetch 
+	function using JavaScript keywords:
+
+		const postData = async ( url = '', data = {})=>{
+    
+      			const response = await fetch(url, {
+      				method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      				credentials: 'same-origin', 
+      				headers: {
+          				'Content-Type': 'application/json',
+      				},
+      				body: JSON.stringify(data), // body data type must match "Content-Type" header        
+    			});
+  
+      			try {
+        			const newData = await response.json();
+               				return newData
+      			}catch(error) {
+      				console.log("error", error);
+      				// appropriately handle the error
+      			}
+  		}
+
+  		postData('/addMovie', {movie:' the matrix', score: 5})
+
+	postData is an async arrow function that is called with parameters on the last line of code. It is asynchronous because of the keyword async placed before its parameters.
+
+	const postData = async ( url = '', data = {})=>{
+      		const response = await fetch(url, {
+      		method: 'POST',
+      		credentials: 'same-origin',
+      		headers: {
+          		'Content-Type': 'application/json',
+      		},
+      		body: JSON.stringify(data),      
+    		});
+
+	...
+	}
+
+	Once you mark a function as 'async' you have access to the keywords await, try, and catch.
+
+   		try {
+        		const newData = await response.json();
+        		return newData
+      		} catch(error) {
+      			console.log("error", error);
+      			// appropriately handle the error
+      		}
+
+	The keywords try and catch mirror the Promise functionality of resolving or rejecting to execute a task. In this case, if and elseare replaced with the keywords tryand catch. The 
+	await keyword is used in places where the next action requires data from the current action, so we want to tell our program to wait until the data has been received before continuing with the next steps-- this is the magic of ASYNC JavaScript.
+
+
+	Quiz Question
+	-------------
+
+	Which of these amazing ‘facts’ are also true about asynchronous JavaScript
+
+	Asw/
+	. Native Promises in JavaScript allwo for asynchronous functions that are dependent on satisfying a condition.
+	. JavaScript functions can be made asynchronous simply by using the keyword async.
+	. JavaScript functions denoted by the keyword async allow for the syntax of await, try, and catch, for an elegant way of dealing with code asynchronously.
+
+	In the next lesson we will learn how to pair JavaScript async fetch functions with Web APIS to unleash the dynamic power of front-end programming.
+
+	More on Async JS
+	----------------
+	For a more detailed overview on Promises and why they matter, read the article here.
+
+	* ASYNC --> Async is waiting for something to happen before it can execute the next line of code.
+	
+	* AWAIT --> Wait until the API responds.
+
+	* TRY --> Once API responds. TRY to do {the thing you want to do with the information received from the API}
+
+	* CATCH --> If there is an ERROR in the TRY block then CATCH it and process it {how to deal with error: e.g., where there is an error, pop up an alert box, track it in the 
+	console.log.
+
+=================================================================================================================================================================-
+
+3. Exercise: Async Function
+---------------------------
+
+
+
+
+
+
+
+
