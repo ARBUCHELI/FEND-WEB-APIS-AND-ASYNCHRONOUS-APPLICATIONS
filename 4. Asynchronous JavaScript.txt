@@ -758,10 +758,97 @@ postGet()
 
 ==================================================================================================================================================================
 
+12. Updating UI Elements Demo
+-----------------------------
+	Quiz Question
+	-------------
+	Which are the three steps to updating the UI of an app dynamically...
 
+	Asw/ Create a selector, capture the data you want to update the element with, set updated property for element.
 
+	Updating UI Elements Quiz 2
+	---------------------------
+	Assume you have a div with the id: score. Assume you also have the data object below returned from a fetch() call-- what line of code would you write to assign the innerHTML 
+	property of <div id=”score”></div> to the value of the key returnedScore .
 
+		data = {
+  			name: ‘who cares’,
+  			returnedScore: 6
+		}
 
+	Hint: Use getElementById
+
+	Asw/ document.getElementById('score').innerHTML = data.returnedScore;
+
+	And that’s it! Now you have learned how to create an Asynchronous App that uses Web APIs with routes and requests using Express! Hooray!
+
+==================================================================================================================================================================
+
+13. Real-World Examples of Asynchronous Javascript
+------------------------------------------------
+	Real-world examples of Asynchronous Javascript
+	----------------------------------------------
+	Before asynchronous JavaScript with promises, if you wanted to query a database to retrieve information, such as a user's password and login name, you would need to write a long 
+	series of callback functions and if anything in your code failed, the entire process would stop. For example, if a program tried to access the database to get the user password, 
+	but it wasn't able to, instead of continuing to attempt to retrieve the login, the program would just stop without notice. With Asynchronous promises, the program could report an 
+	error for the password, and continue on retrieving the login.
+
+	In this example, moving the code from regular synchronous JavaScript to asynchronous JavaScript has 3 positive effects:
+
+		1. The asynchronous code will be much cleaner and shorter.
+
+		2. If there is an error in one part of the code, it will not block other portions of the code.
+
+		3. Debugging the code will be much easier because you will get much more specific and generally more helpful error messages from asynchronous code.
+
+	Here's another quick example to illustrate asynchronous JavaScript in the real world. Imagine you were making an application that converted international currency. The application 
+	would let a user enter a dollar amount in U.S. currency and select another country's currency to convert to. Without asynchronous JavaScript, programming this application could be 
+	a nightmare because there are so many dependent parts, such as the APIs you would need to get the conversion rates for every currency, the equations needed to transform the 
+	original dollar amount into the new currency, and the code to hold everything together. Asynchronous JavaScript can organize this code into discrete parts that can fail or succeed 
+	on their own without breaking the rest of the program. Additionally, asynchronous JavaScript lets you wait until one command is completed before executing the next.
+
+	In this example, that means your code can wait until it has received the information from the API about a specific currency, before trying to make the calculations of conversion. 
+	Without asynchronous JavaScript, a program would fail because it would take too long to retrieve the information from the API, and there would be no way to tell the program to 
+	wait until the previous action was finished before taking on the next command.
+
+	From this example, we can add a fourth feature of asynchronous Javascript which is that it allows you to complete one line of code, regardless of how long it takes, before moving 
+	on to the next line of code.
+
+	In Summary
+	----------
+	Based on these examples, four features of asynchronous JavaScript in the real world are:
+
+		1. Clean and Concise Syntax
+
+		2. Better error handling
+
+		3. Easier Debugging
+
+		4. Ability to add timing to code
+
+	External Resources
+	------------------
+		1. Mozilla - Introducing Asynchronous Javascript
+		2. Introduction to Asynchronous JavaScript
+		3. Writing Asynchronous Tasks In Modern JavaScript
+
+==================================================================================================================================================================
+
+14. Outro
+---------
+	- How to set up a Node and Express environment.
+	- How to make routes through your server and requests through your client side code.
+	- How to chain promises together to be able to work with data dynamically that depends on outside sources and interactions.
+	- How to take all that together and in real time update the UI of your app.
+
+==================================================================================================================================================================
+
+15. Instructor Interview
+------------------------
+	Here, you’ll get a chance to listen to Daniel talk about the importance of the skills you’ve learned, how to use them to build a portfolio-worthy project, what jobs you can apply 
+	these skills towards, and more!
+
+	
 
 
 
