@@ -1,7 +1,7 @@
 # ASYNCHRONOUS JAVASCRIPT
 -------------------------
 
-* Async JS
+1. Async JS
 ----------
 
 	* Asynchronous JavaScript
@@ -152,6 +152,633 @@
 
 3. Exercise: Async Function
 ---------------------------
+	Lesson 4 Asynchronous JavaScript
+	--------------------------------
+	In this exercise you will essentially write the function that was provided for you in the last exercise of Lesson 3, so it's there somewhere in your brain...you got this!
+
+	L4- Set 1
+	---------
+	1) In the file getPost.js (located in the website directory of this project), write an async function to make a POST request that has two arguments: a url to make the POST to, and 
+	a JavaScript object holding the data to post.
+
+	HIDE SOLUTION
+	-------------
+
+	const postData = async ( url = '', data = {})=>{
+
+    		const response = await fetch(url, {
+    			method: 'POST', 
+    			credentials: 'same-origin', 
+    			headers: {
+        			'Content-Type': 'application/json',
+    			},
+   			body: JSON.stringify(data), // body data type must match "Content-Type" header        
+  		});
+
+    		try {
+      			const newData = await response.json();
+      			return newData
+    		}catch(error) {
+    			console.log("error", error);
+    		}
+	}
+
+server.js
+---------
+/* Empty JS object to act as endpoint for all routes */
+projectData = {};
+
+/* Express to run server and routes */
+const express = require('express');
+
+/* Start up an instance of app */
+const app = express();
+
+/* Dependencies */
+const bodyParser = require('body-parser')
+/* Middleware*/
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+const cors = require('cors');
+app.use(cors());
+
+/* Initialize the main project folder*/
+app.use(express.static('website'));
+
+const port = 3000;
+/* Spin up the server*/
+const server = app.listen(port, listening);
+ function listening(){
+    // console.log(server);
+    console.log(`running on localhost: ${port}`);
+  };
+
+// GET route
+app.get('/all', sendData);
+
+function sendData (request, response) {
+  response.send(projectData);
+};
+
+// POST route
+app.post('/add', callBack);
+
+function callBack(req,res){
+  res.send('POST received');
+}
+
+// POST an animal
+const data = [];
+
+app.post('/animal', addAnimal);
+
+function addAnimal (req,res){
+    data.push(req.body);
+};
+
+getPost.js
+----------
+// TODO
+const postData = async ( url = '', data = {})=>{
+
+    const response = await fetch(url, {
+    method: 'POST', 
+    credentials: 'same-origin', 
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data), // body data type must match "Content-Type" header        
+  });
+
+    try {
+      const newData = await response.json();
+      return newData
+    }catch(error) {
+    console.log("error", error);
+    }
+}
+
+==================================================================================================================================================================
+
+4. Async Fetch w/ Web APIs Intro
+--------------------------------
+	* Asynchronous JavaScript with Fetch Introduction
+	-------------------------------------------------
+	The fetch API is made on top of JavaScript promises, which make it ideal for working with Web APIs. 
+		
+		Async Fetch w/ Web API's (1 of 3)
+		---------------------------------
+			. Web API's --> Application Programming Interface, for either a web server or a web browser.
+
+			. Popular web API's --> Weather data, financial data. Web API can be anywhere that someone has organized information, and made that data available 
+			through query.
+
+==================================================================================================================================================================
+
+5. Credentials and API keys
+---------------------------
+	Many APIs require you to sign up, create credentials, and use an API key in order to start sending requests to the API.
+
+	When working with API, there is a little bit of a setup you need to do even before you start coding.
+
+	Remember that you're actually going to build a query by making an URL that inlcudes the key that you will ask to be generate in an API documentation.
+
+	Async Fecth w/Web API's (2 of 3)
+	--------------------------------
+	1. Sign up for developer credentials.
+	2. Build API URL in code using API key.
+
+	For instance, if you travel to NASA’s API documentation, the next step after testing out an example API call is to sign up for an API key.
+
+==================================================================================================================================================================
+
+6. Adding Fetch to Your Code
+----------------------------
+	What the following URL means, is that when people go in their web browsers, if the complete typing an animal, they'll see info about a tiger.
+
+	Here is the client side code that would make a GET request to the animal info API:
+
+		let baseURL = 'http://api.animalinfo.org/data/?animal='
+		let apiKey = '&appid=9f15e45060...';
+
+		document.getElementById('generate').addEventListener('click', performAction);
+
+		function performAction(e){
+		const newAnimal =  document.getElementById('animal').value;
+		getAnimal(baseURL,newAnimal, apiKey)
+
+		}
+
+		const getAnimal = async (baseURL, animal, key)=>{
+
+  			const res = await fetch(baseURL+animal+key)
+  				try {
+
+    					const data = await res.json();
+    					console.log(data)
+    					return data;
+  				}  catch(error) {
+    					console.log("error", error);
+    					// appropriately handle the error
+  				}
+		}
+
+	If you would like to read more about Fetch, you can check out the documentation here.
+	
+
+==================================================================================================================================================================
+
+7. Exercise: Async GET
+----------------------
+	L4- Set 2
+	In this exercise you will GET async with it...
+
+	1) In the file getPost.js, write an async function to make a GET request that has one argument: a url to make the GET request to.
+
+	Hint - Fetch is your friend.
+
+	HIDE SOLUTION
+	-------------
+	const retrieveData = async (url='') =>{ 
+  		const request = await fetch(url);
+  		try {
+  			// Transform into JSON
+  			const allData = await request.json()
+  		}
+  		catch(error) {
+    			console.log("error", error);
+    			// appropriately handle the error
+  		}
+	}
+
+server.js
+---------
+/* Empty JS object to act as endpoint for all routes */
+projectData = {};
+
+/* Express to run server and routes */
+const express = require('express');
+
+/* Start up an instance of app */
+const app = express();
+
+/* Dependencies */
+const bodyParser = require('body-parser')
+/* Middleware*/
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+const cors = require('cors');
+app.use(cors());
+
+/* Initialize the main project folder*/
+app.use(express.static('website'));
+
+const port = 3000;
+/* Spin up the server*/
+const server = app.listen(port, listening);
+ function listening(){
+    // console.log(server);
+    console.log(`running on localhost: ${port}`);
+  };
+
+// GET route
+app.get('/all', sendData);
+
+function sendData (request, response) {
+  response.send(projectData);
+};
+
+// POST route
+app.post('/add', callBack);
+
+function callBack(req,res){
+  res.send('POST received');
+}
+
+// POST an animal
+const data = [];
+
+app.post('/animal', addAnimal);
+
+function addAnimal (req,res){
+    data.push(req.body);
+};
+
+getPost.js
+----------
+// Async POST
+const postData = async ( url = '', data = {})=>{
+
+    const response = await fetch(url, {
+    method: 'POST', 
+    credentials: 'same-origin', 
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data), // body data type must match "Content-Type" header        
+  });
+
+    try {
+      const newData = await response.json();
+      return newData
+    }catch(error) {
+    console.log("error", error);
+    }
+}
+
+// TODO-Async GET
+const retrieveData = async (url='') =>{ 
+  const request = await fetch(url);
+  try {
+  // Transform into JSON
+  const allData = await request.json()
+  }
+  catch(error) {
+    console.log("error", error);
+    // appropriately handle the error
+  }
+}
+
+==================================================================================================================================================================
+
+8. Async Fetch with Web APIs Demo
+---------------------------------
+	Here is the Fetch demo code shown in the video above:
+
+	/ *WEB API WITH FETCH DEMO-- * /
+  	let baseURL = 'http://api.animalinfo.org/data/?animal='
+  	let apiKey = '&appid=9f15e45060...';
+  	const newAnimal =  document.getElementById('animal').value;
+
+  	document.getElementById('generate').addEventListener('click', performAction);
+
+  	function performAction(e){  
+    		getAnimalDemo(baseURL,newAnimal, apiKey)
+  	}
+
+
+  	const getAnimalDemo = async (baseURL, animal, key)=>{
+  	// 1.
+    		const res = await fetch(baseURL+animal+key)
+  	// 2. Call Fake API
+    		// const res = await fetch('/fakeAnimalData')
+    		try {
+
+      			const data = await res.json();
+      			console.log(data)
+      			// 1. We can do something with our returned data here-- like chain promises!
+  
+      			// 2. 
+      			// postData('/addAnimal', data)
+    		}  catch(error) {
+      			// appropriately handle the error
+      		   console.log("error", error);
+    		}
+  	}
+
+	As you continue to work with Promises and Async JavaScript it will start to feel more natural to do so. In the meantime, you can keep checking back against the keywords and making 
+	sure you are using async await try and catch to lead you to async dreamland.
+
+
+	Quiz Question
+	-------------
+	Which of the steps below are associated with working with Web APIs asynchronously?
+
+	Asw/
+		- Registering for developer credentials on the Web API's website.
+		- Creating variables to hold the base url and api key for the Web API.
+		- Buildign a dynamic URL to make a query to the Web API.
+		- Using Fetch in an async function to make a GET request to the Web API.
+
+	Async Fetch w/ Web APIs Quiz 2
+	------------------------------
+	Create a dynamic URL for a web api with the base url www.api.com/data? where the variable holding the user input you are interested in is named holder, and your API key is the 
+	number 68.
+
+		'www.api.com/data?='+holder+68
+
+	The JavaScript Fetch API provides a more elegant interface and syntax for working with HTTP requests. This makes it a perfect fit for working with Web API data. Up next, we will 
+	learn how to chain Fetch calls together to dynamically update the UI of an app.
+
+		. Fetch over view on MDN
+		. Using Fetch on MDN
+
+==================================================================================================================================================================
+
+9. Chaining Promises
+--------------------
+	Working with promises in the fetch API, allows to chain promises on top of each other and create functions that depend on outside data without causing errors in the code.
+
+	Example:
+	--------
+	We have an animal Web API app. We want to add a feature in the app where users can enter the favorite thing about their favorite animal. Then we want to be able to save all the
+	information (the info that we get from the API, the name, the fun fact), and then we have from the user their favorite thing about the animal.
+
+	And then we want to take all that and save it into our app so that we can use it later. So we'll need two fetch calls.
+		. A GET request to the animal web API.
+		. A POST request to store all the data we received locally in our app.
+
+	- For doing things like this, we can use the syntax "then" to chain actions.
+
+	Chaining Promises
+	-----------------
+	. Two Fetch calls
+		. GET
+		. POST
+
+	. Using then() to chain actions
+	
+	Notice we have set up a helper function to use fetch to make an async GET request for a route that is made to simulate the Animal Info Web API we are using as an example.
+
+	Inside .then() we could call another async function to make a POST request to store this data in our app. Assuming a POST route has been setup on the server side to add data it 
+	received to the app endpoint, we could simply call the function we have been using to create POST requests on the client side and pass it the POST route url and the data we want 
+	to save to our app. The only tricky part (which can also be fun!), is that we need to use the returned data, and data that we retrieve from a DOM element to create the structure 
+	for our POST request.
+
+	As a reminder, the postData() function takes a URL, and a data object as parameters. To build the data object using data received from the previous fetch call we can use dot 
+	notation. So we could set our first elements like this:
+
+		postData('/addAnimal', {animal:data.animal, fact: data.fact} )
+
+	But we also want to include the users favorite thing about the animal, which we can add using the variable name which selects the textarea where the users response is. So our 
+	final code for creating a POST route to save the data to our app would look like this:
+
+		postData('/addAnimal', {animal:data.animal, fact: data.fact, fav:favFact} )
+
+	Then on the server side to actually add the sent data to our app, we would use this code:
+
+		app.post('/addAnimal', addAnimal);
+
+		function addAnimal(req,res){
+
+  			newEntry = {
+    				animal: req.body.animal,
+    				facts: req.body.fact,
+    				fav: req.body.fav
+  			}
+
+  			animalData.push(newEntry)
+  			console.log(animalData)
+		}
+
+	Quiz Question
+	-------------
+	Which of the following is true about working with Promises?
+
+	Asw/ Chaining Promises with .then() allows you to make multiple HTTP requests.
+
+	Great! Now let’s finally learn how to update the UI of an app with the data gathered from requests and routes.
+
+==================================================================================================================================================================
+
+10. Updating UI Elements
+------------------------
+	* Dynamic UI Updates
+	--------------------
+	One of the most useful applications of chain promises is to use Web API data to dynamically update the UI of an app.
+
+	Dynamically updating the UI of an app means creating or changing DOM elements based on data received in real time from the app or from an API.
+
+	Updating UI Elements
+	--------------------
+	- Three steps to dynamically update UI:
+		. Create selector.
+		. Identify data with which to update element.
+		. Set appropiate property.
+
+	Here is what it would look like to use chained GET and POST requests to retrieve information from our animal Web API, and then update DOM elements accordingly:
+
+HTML
+----
+<label for="animal">Enter the name of your favorite animal</label>
+<input id="animal" name="animal">
+<textarea id="favorite" placeholder="Enter your favorite thing about your favorite animal" rows="9" cols="50"></textarea>
+<button id = "generate">GO</button>
+
+JS
+--
+document.getElementById('generate').addEventListener('click', performAction);
+
+function performAction(e){
+  const newAnimal =  document.getElementById('animal').value;
+  const favFact =  document.getElementById('favorite').value;
+
+  getAnimal('/animalData',)
+  // New Syntax!
+  .then(function(data){
+    // Add data
+    console.log(data);
+    postData('/addAnimal', {animal:data.animal, fact: data.fact, fav:favFact} );
+  })
+  .then(
+    updateUI()
+  )
+}
+
+const updateUI = async () => {
+  const request = await fetch('/all');
+  try{
+    const allData = await request.json();
+    document.getElementById('animalName').innerHTML = allData[0].animal;
+    document.getElementById('animalFact').innerHTML = allData[0].facts;
+    document.getElementById('animalFav').innerHTML = allData[0].fav;
+
+  }catch(error){
+    console.log("error", error);
+  }
+}
+
+Notice how calling the function to update the UI is the last thing we do -- this is because the update UI function depends on data from each of the other functions, so each Promise must 
+be resolved successfully before we can update the UI. This demonstrates why native Promises and the Fetch API are such powerful tools for Asynchronous JavaScript.
+
+==================================================================================================================================================================
+
+11. Exercise: Putting It All Together
+-------------------------------------
+	L4 Set 3
+	--------
+	In this exercise, you will bring it all together by chaining async requests.
+	
+	1) In the file getPost.js, write a function that chains together the two async functions you have previously written, so that you make a POST request to the /animal route, and 
+	then retrieve the data with a GET request to the /all path.
+
+	You should pass in a data object of your favorite animal as the second argument for the POST request.
+
+	Call your function as the last line of code in the file named getPost.js.
+
+	function postGet(){
+  		postData('/animal', {fav:'lion'})
+    			.then(function(data){
+      				retrieveData('/all')
+    				})
+		}
+
+	postGet()
+
+server.js
+---------
+/* Empty JS object to act as endpoint for all routes */
+projectData = {};
+
+/* Express to run server and routes */
+const express = require('express');
+
+/* Start up an instance of app */
+const app = express();
+
+/* Dependencies */
+const bodyParser = require('body-parser')
+/* Middleware*/
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+const cors = require('cors');
+app.use(cors());
+
+/* Initialize the main project folder*/
+app.use(express.static('website'));
+
+const port = 3000;
+/* Spin up the server*/
+const server = app.listen(port, listening);
+ function listening(){
+    // console.log(server);
+    console.log(`running on localhost: ${port}`);
+  };
+
+// GET route
+app.get('/all', sendData);
+
+function sendData (request, response) {
+  response.send(projectData);
+};
+
+// POST route
+app.post('/add', callBack);
+
+function callBack(req,res){
+  res.send('POST received');
+};
+
+// POST an animal
+const data = [];
+
+app.post('/animal', addAnimal);
+
+function addAnimal (req,res){
+    data.push(req.body);
+};
+
+
+getPost.js
+----------
+// Async POST
+const postData = async ( url = '', data = {})=>{
+
+    const response = await fetch(url, {
+    method: 'POST', 
+    credentials: 'same-origin', 
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data), // body data type must match "Content-Type" header        
+  });
+
+    try {
+      const newData = await response.json();
+      return newData;
+    }catch(error) {
+    console.log("error", error);
+    }
+};
+
+// Async GET
+const retrieveData = async (url='') =>{ 
+  const request = await fetch(url);
+  try {
+  // Transform into JSON
+  const allData = await request.json()
+  }
+  catch(error) {
+    console.log("error", error);
+    // appropriately handle the error
+  }
+};
+
+// TODO-Chain your async functions to post an animal then GET the resulting data
+
+// TODO-Call the chained function
+function postGet(){
+  postData('/animal', {fav:'lion'})
+    .then(function(data){
+      retrieveData('/all')
+    })
+}
+
+postGet()
+
+==================================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
